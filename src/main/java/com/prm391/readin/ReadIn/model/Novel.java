@@ -26,12 +26,13 @@ public class Novel {
     public Novel() {
     }
 
-    public Novel( String name, String author, List<String> category, Map<Integer, List<String>> chapter, String description, String image, String status, String nation, int no_views) {
+
+
+    public Novel(String name, String author, List<String> category, String description, String image, String status, String nation, int no_views) {
 
         this.name = name;
         this.author = author;
         this.category = category;
-        this.chapter = chapter;
         this.description = description;
         this.image = image;
         this.status = status;

@@ -25,7 +25,7 @@ public class NovelController {
     @PostMapping("/novels")
     public ResponseEntity<Novel> createTutorial(@RequestBody Novel novel) {
         try {
-            Novel _novel = novelRepository.save(new Novel(novel.getName(), novel.getAuthor(), novel.getCategory(), null, novel.getDescription(), novel.getImage(), novel.getStatus(), novel.getNation(), 0));
+            Novel _novel = novelRepository.save(new Novel(novel.getName(), novel.getAuthor(), novel.getCategory(), novel.getDescription(), novel.getImage(), "false", novel.getNation(), 0));
             return new ResponseEntity<>(_novel, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -141,7 +141,7 @@ public class NovelController {
         }
     }
 
-    @PutMapping("/{novel_id}/chapter/{chapter_id}")
+    @PutMapping("/{novel_id}/chapter/{chapter_id}/update")
     public ResponseEntity<Novel> updateChapter(@PathVariable("novel_id") String novel_id, @PathVariable("chapter_id") String chapter_id, @RequestBody List<String> chapter) {
         Optional<Novel> novelData = novelRepository.findById(novel_id);
 
@@ -150,6 +150,21 @@ public class NovelController {
             Map<Integer, List<String>> novelChapter = _novel.getChapter();
             novelChapter.put(Integer.parseInt(chapter_id), chapter);
             _novel.setChapter(novelChapter);
+
+            return new ResponseEntity<>(novelRepository.save(_novel), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/{novel_id}/chapter")
+    public ResponseEntity<Novel> updateChapterView(@PathVariable("novel_id") String novel_id) {
+        Optional<Novel> novelData = novelRepository.findById(novel_id);
+
+        if (novelData.isPresent()) {
+            Novel _novel = novelData.get();
+
+            _novel.setNo_views(_novel.getNo_views() + 1);
 
             return new ResponseEntity<>(novelRepository.save(_novel), HttpStatus.OK);
         } else {

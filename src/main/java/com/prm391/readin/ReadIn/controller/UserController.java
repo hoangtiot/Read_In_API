@@ -15,7 +15,8 @@ import java.util.Optional;
 @RequestMapping("/api/user")
 public class UserController {
 
-    final UserRepository userRepository;
+    final
+    UserRepository userRepository;
 
     @Autowired
     public UserController(UserRepository userRepository) {
