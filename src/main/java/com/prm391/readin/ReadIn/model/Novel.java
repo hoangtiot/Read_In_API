@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Document(collection = "novels")
 public class Novel {
@@ -14,9 +15,9 @@ public class Novel {
 
     private String name;
     private String author;
-    private String category;
-    private List<HashMap<String, String>> chapter;
-    private String description;
+    private List<String> category;
+    private Map<Integer, List<String>> chapter;
+    private String  description;
     private String image;
     private String status;
     private String nation;
@@ -25,7 +26,7 @@ public class Novel {
     public Novel() {
     }
 
-    public Novel( String name, String author, String category, List<HashMap<String, String>> chapter, String description, String image, String status, String nation, int no_views) {
+    public Novel( String name, String author, List<String> category, Map<Integer, List<String>> chapter, String description, String image, String status, String nation, int no_views) {
 
         this.name = name;
         this.author = author;
@@ -62,19 +63,19 @@ public class Novel {
         this.author = author;
     }
 
-    public String getCategory() {
+    public List<String> getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(List<String> category) {
         this.category = category;
     }
 
-    public List<HashMap<String, String>> getChapter() {
+    public Map<Integer, List<String>> getChapter() {
         return chapter;
     }
 
-    public void setChapter(List<HashMap<String, String>> chapter) {
+    public void setChapter(Map<Integer, List<String>> chapter) {
         this.chapter = chapter;
     }
 

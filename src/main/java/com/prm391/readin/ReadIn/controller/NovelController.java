@@ -7,9 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
@@ -107,7 +105,7 @@ public class NovelController {
     }
 
     @GetMapping("/status/{status}")
-    public ResponseEntity<List<Novel>> findByStatus(@PathVariable("status") Boolean status) {
+    public ResponseEntity<List<Novel>> findByStatus(@PathVariable("status") String status) {
         try {
             List<Novel> novels = new ArrayList<Novel>();
 
@@ -123,7 +121,7 @@ public class NovelController {
         }
     }
 
-    @PutMapping("/novels/{id}")
+    @PutMapping("/novel/{id}")
     public ResponseEntity<Novel> updateNovel(@PathVariable("id") String id, @RequestBody Novel novel) {
         Optional<Novel> novelData = novelRepository.findById(id);
 
@@ -137,6 +135,22 @@ public class NovelController {
             _novel.setImage(novel.getImage());
             _novel.setStatus(novel.getStatus());
             _novel.setNation(novel.getNation());
+            return new ResponseEntity<>(novelRepository.save(_novel), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/{novel_id}/chapter/{chapter_id}")
+    public ResponseEntity<Novel> updateChapter(@PathVariable("novel_id") String novel_id, @PathVariable("chapter_id") String chapter_id, @RequestBody List<String> chapter) {
+        Optional<Novel> novelData = novelRepository.findById(novel_id);
+
+        if (novelData.isPresent()) {
+            Novel _novel = novelData.get();
+            Map<Integer, List<String>> novelChapter = _novel.getChapter();
+            novelChapter.put(Integer.parseInt(chapter_id), chapter);
+            _novel.setChapter(novelChapter);
+
             return new ResponseEntity<>(novelRepository.save(_novel), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

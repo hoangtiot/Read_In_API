@@ -11,5 +11,5 @@ public interface NovelRepository extends MongoRepository<Novel, String> {
     List<Novel> findByName(String name);
     List<Novel> findByAuthor(String author);
     List<Novel> findByCategory(String category);
-    List<Novel> findByStatus(Boolean status);
+    List<Novel> findByStatus(String status);
 }

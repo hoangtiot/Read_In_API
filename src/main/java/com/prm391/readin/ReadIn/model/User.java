@@ -12,15 +12,15 @@ public class User {
     private String id;
 
     private String name;
+    private String password;
     private List<String> reading_history;
 
     public User() {
     }
 
-    public User(String id, String name, List<String> reading_history) {
-        this.id = id;
+    public User(String name, String password) {
+        this.password = password;
         this.name = name;
-        this.reading_history = reading_history;
     }
 
     public String getId() {
@@ -37,6 +37,14 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public List<String> getReading_history() {
