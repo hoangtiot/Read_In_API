@@ -141,15 +141,29 @@ public class NovelController {
         }
     }
 
-    @PutMapping("/{novel_id}/chapter/{chapter_id}/update")
-    public ResponseEntity<Novel> updateChapter(@PathVariable("novel_id") String novel_id, @PathVariable("chapter_id") String chapter_id, @RequestBody List<String> chapter) {
-        Optional<Novel> novelData = novelRepository.findById(novel_id);
+//    @PutMapping("/{id}/chapter")
+//    public ResponseEntity<Novel> updateChapter(@PathVariable("id") String id, @RequestBody Novel novel) {
+//        Optional<Novel> novelData = novelRepository.findById(id);
+//
+//        if (novelData.isPresent()) {
+//            Novel _novel = novelData.get();
+//            _novel.setChapter(novel.getChapter());
+//
+//            return new ResponseEntity<>(novelRepository.save(_novel), HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//    }
+
+    @PutMapping("/{id}/chapter/{cid}")
+    public ResponseEntity<Novel> updateChapter(@PathVariable("id") String id, @PathVariable("cid") String cid, @RequestBody Map<String, List<String>> chap) {
+        Optional<Novel> novelData = novelRepository.findById(id);
 
         if (novelData.isPresent()) {
             Novel _novel = novelData.get();
-            Map<Integer, List<String>> novelChapter = _novel.getChapter();
-            novelChapter.put(Integer.parseInt(chapter_id), chapter);
-            _novel.setChapter(novelChapter);
+            Map<Integer, List<String>> curChap = _novel.getChapter();
+            curChap.put(Integer.parseInt(cid), chap.get(cid));
+            _novel.setChapter(curChap);
 
             return new ResponseEntity<>(novelRepository.save(_novel), HttpStatus.OK);
         } else {
