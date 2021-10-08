@@ -1,5 +1,6 @@
 package com.prm391.readin.ReadIn;
 
+import com.prm391.readin.ReadIn.controller.NovelController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
