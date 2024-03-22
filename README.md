@@ -48,6 +48,6 @@ docker run -dp 127.0.0.1:3000:3000 readin
 
 ## :handshake: Contact
 
-hoangtiot - [@twitter_handle](https://www.linkedin.com/in/hoangdh1262/) - dohuyhoang1120@gmail.com
+hoangtiot - [Linkedin](https://www.linkedin.com/in/hoangdh1262/) - dohuyhoang1120@gmail.com
 
 Project Link: [https://github.com/hoangtiot/Read_In_API](https://github.com/hoangtiot/Read_In_API)
